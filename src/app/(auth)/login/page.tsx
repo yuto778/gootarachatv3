@@ -1,3 +1,4 @@
+import Login from "@/components/Login";
 import { Metadata } from "next";
 import React from "react";
 
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div className="flex-1 flex  justify-center items-center">
+      <Login />
+    </div>
+  );
 };
 
 export default page;

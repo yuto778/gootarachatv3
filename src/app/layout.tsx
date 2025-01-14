@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Hachi_Maru_Pop } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const hachmaru = Hachi_Maru_Pop({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -23,10 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={cn(
+          `min-h-screen min-w-full antialiased bg-gradient-to-b from-yellow-first to-yellow-end flex flex-col overflow-hidden ${hachmaru.className}`
+        )}
       >
+        <Toaster />
         {children}
       </body>
     </html>
