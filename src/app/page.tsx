@@ -3,6 +3,11 @@ import MyInfomation from "@/components/MyInfomation";
 import Image from "next/image";
 import MainHeader from "@/components/MainHeader";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ホーム画面",
+};
 
 export default function Home() {
   return (

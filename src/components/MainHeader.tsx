@@ -35,9 +35,12 @@ const MainHeader = () => {
   const pathname = usePathname();
 
   const Active = pathname;
+
   return (
     <div className="min-h-20 items-center  flex px-5 md:px-10">
-      <h1 className="text-xl  md:text-2xl text-black-1 ">ぐーたらちゃっと</h1>
+      <h1 className="text-xl  md:text-2xl lg:text-3xl text-black-1 ">
+        ぐーたらちゃっと
+      </h1>
       <span className="flex-1"></span>
       <nav className=" hidden sm:flex items-center gap-5  ">
         {lists.map((list, index) => (

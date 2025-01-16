@@ -51,7 +51,7 @@ const MyInfomation = () => {
               src={"/kurobe.jpeg"}
               width={50}
               height={50}
-              className="aspect-square rounded-full "
+              className="aspect-square rounded-full hover:scale-110 transition cursor-pointer "
               alt="user"
               key={index}
             />
