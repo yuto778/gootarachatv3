@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Hachi_Maru_Pop } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "react-hot-toast";
 
 const hachmaru = Hachi_Maru_Pop({
   weight: "400",

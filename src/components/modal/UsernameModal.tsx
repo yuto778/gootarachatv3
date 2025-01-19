@@ -12,6 +12,7 @@ import { UsernameUpdate } from "../../../actions/UsernameUpdate";
 import { Delay } from "../Delay";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import toast from "react-hot-toast";
 
 interface UsernameModalProps {
   close: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,11 +42,14 @@ const UsernameModal: React.FC<UsernameModalProps> = ({ close, data }) => {
   });
 
   const onSubmit = async (values: UsernameFormType) => {
+    const load = toast.loading("送信中");
     const result = await UsernameUpdate(values, data.UserId!);
 
-    if (result.success === false) return;
+    if (result.success === false) toast.error("失敗しました", { id: load });
 
     await Delay(500);
+
+    toast.success("成功🚀", { id: load });
 
     close(false);
 
@@ -86,16 +90,10 @@ const UsernameModal: React.FC<UsernameModalProps> = ({ close, data }) => {
             />
 
             <Button type="submit" className="self-center">
-              登録🚀
+              変更🚀
             </Button>
           </form>
         </Form>
-        {/* <form className="flex flex-col space-y-5">
-      <Input type="file" accept="image/*" onChange={handleImageChange} />
-      <Button type="submit" className="self-center " onClick={imageupdate}>
-        変更🚀
-      </Button>
-    </form> */}
       </div>
     </div>
   );

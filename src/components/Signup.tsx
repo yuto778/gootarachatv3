@@ -16,6 +16,8 @@ import { useRouter } from "next/navigation";
 import { SignupFunction } from "../../actions/SignupFunction";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import toast from "react-hot-toast";
+import { Delay } from "./Delay";
 
 const formSchema = z.object({
   Username: z.string().min(2).max(50),
@@ -40,9 +42,13 @@ const Signup = () => {
 
   const onSubmit = async (values: SignupFormType) => {
     if (values.Password === values.RePassword) {
+      const load = toast.loading("登録中");
       const result = await SignupFunction(values);
-      if (result.success === false) return;
+      if (result.success === false) toast.error("失敗です", { id: load });
 
+      await Delay(500);
+
+      toast.success("登録しました", { id: load });
       router.push("/login");
     }
   };

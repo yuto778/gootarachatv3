@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 import { Delay } from "../Delay";
+import toast from "react-hot-toast";
 
 interface ImageModalProps {
   close: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,15 +28,19 @@ const ImageModal: React.FC<ImageModalProps> = ({ close, data }) => {
   const imageupdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    const load = toast.loading("送信中");
+
     const result = await ImageUpdataFunction(selectedImage!, data);
 
-    if (result?.success === false) return;
+    if (result?.success === false) toast.error("失敗しました", { id: load });
 
     await Delay(500);
 
+    toast.success("成功しました", { id: load });
+
     close(false);
 
-    router.push("/mypage");
+    router.refresh();
   };
   return (
     <div

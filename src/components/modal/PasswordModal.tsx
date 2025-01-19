@@ -18,6 +18,7 @@ import { Input } from "../ui/input";
 import { PasswordUpdate } from "../../../actions/PasswordUpdate";
 import { Delay } from "../Delay";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface PasswordModalProps {
   close: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,11 +44,13 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ close, data }) => {
 
   const onSubmit = async (values: PasswordFormType) => {
     if (values.Password === values.RePassword) {
+      const load = toast.loading("送信中");
       const result = await PasswordUpdate(values, data);
 
-      if (result.success === false) return;
+      if (result.success === false) toast.error("失敗です", { id: load });
 
       await Delay(500);
+      toast.success("成功です", { id: load });
 
       close(false);
       router.refresh();

@@ -16,6 +16,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { LoginFunction } from "../../actions/LoginFunction";
+import toast from "react-hot-toast";
+import { Delay } from "./Delay";
 
 const loginformSchema = z.object({
   Mailaddress: z.string().email(),
@@ -39,11 +41,16 @@ const Login = () => {
   // };
 
   const onSubmit = async (values: LoginFormType) => {
+    const load = toast.loading("ログイン中・・・");
     const result = await LoginFunction(values);
 
     if (result.success === false) {
-      return;
+      toast.error("失敗", { id: load });
     }
+
+    await Delay(500);
+
+    toast.success("ログイン成功", { id: load });
 
     router.push("/");
   };
@@ -101,7 +108,7 @@ const Login = () => {
           />
 
           <Button type="submit" className="self-center">
-            登録🚀
+            ログイン🚀
           </Button>
         </form>
       </Form>
