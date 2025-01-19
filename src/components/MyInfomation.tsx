@@ -44,10 +44,8 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
           />
         </div>
         <div className="flex-1 flex flex-col gap-5 p-8">
-          <h2 className=" text-xl">ゆうと</h2>
-          <p className="truncate text-xs max-w-32">
-            hdfhdhjfkdsjkfjdskfjksfdfdjfhdjfhdjfh
-          </p>
+          <h2 className=" text-xl">{data.data?.Username}</h2>
+          <p className="truncate text-xs max-w-32">{data.data?.UserId}</p>
         </div>
       </div>
       <div className="max-w-40 flex-1   border-t border-r border-black-1 hidden md:flex flex-col  p-10    ">
@@ -61,8 +59,8 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
           />
         </div>
         <div className="flex items-center flex-col mt-3">
-          <h2 className="text-black-1 ">ゆうと</h2>
-          <p className="text-black-1 truncate max-w-28">kejfkdjfkdjfkdjfdj</p>
+          <h2 className="text-black-1 ">{data.data?.Username}</h2>
+          <p className="text-black-1 truncate max-w-28">{data.data?.UserId}</p>
         </div>
         <div className="flex-1 w-full flex flex-col items-center gap-5 pt-6  md:max-h-[900px] lg:max-h-[500px] overflow-y-auto ">
           {[...Array(30)].map((_, index) => (

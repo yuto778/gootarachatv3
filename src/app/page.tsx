@@ -28,7 +28,7 @@ export default async function Home() {
           <div className="flex-1 flex flex-col md:flex-row w-full  md:border-t md:border-black-1 ">
             <div className="flex flex-col flex-1 md:flex-none md:w-3/4 pt-3">
               <h2 className="pl-5 mb-5">チャット</h2>
-              <div className=" w-full  max-h-[585px] md:max-h-[1045px] lg:max-h-[650px] overflow-y-auto ">
+              <div className=" w-full  max-h-[480px] md:max-h-[1045px] lg:max-h-[650px] overflow-y-auto ">
                 {[...Array(50)].map((_, index) => (
                   <div
                     className="max-h-32 relative flex items-center justify-between bg-black-1/20 hover:bg-black-1/80 transition  py-5 px-5 cursor-pointer hover:text-yellow-first "
@@ -42,7 +42,7 @@ export default async function Home() {
                         alt="user"
                         className="aspect-square rounded-full "
                       />
-                      <h2 className="">ゆうと</h2>
+                      <h2 className="">{data.data?.Username}</h2>
                     </div>
                     <div className="max-w-[150px]">
                       <p className=" truncate text-xs">
