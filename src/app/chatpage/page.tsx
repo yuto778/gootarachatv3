@@ -3,13 +3,26 @@ import MainHeader from "@/components/MainHeader";
 import MyInfomation from "@/components/MyInfomation";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
+import { GetUser } from "../../../data/GetUser";
+import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
-const Chatpage = () => {
+export const metadata: Metadata = {
+  title: "チャットページ",
+  description: "個別チャットページです",
+};
+
+const Chatpage = async () => {
+  const data = await GetUser();
+
+  if (data.success === false) {
+    redirect("/login");
+  }
   return (
     <div>
       <MainHeader />
       <div className="flex-1 flex flex-col md:flex-row">
-        <MyInfomation />
+        <MyInfomation data={data} />
 
         <div className="flex-1  w-full flex flex-col ">
           <div className="min-h-10 flex items-center justify-center relative border-t border-b border-black-1">

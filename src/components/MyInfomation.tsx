@@ -36,7 +36,7 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
       >
         <div className="w-1/2  flex items-center justify-center ">
           <Image
-            src={data.data?.AvatarImage}
+            src={data.data?.AvatarImage || "/kurobe.jpeg"}
             alt="myphoto"
             width={100}
             height={100}
@@ -53,7 +53,7 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
       <div className="max-w-40 flex-1   border-t border-r border-black-1 hidden md:flex flex-col  p-10    ">
         <div className="flex items-center flex-col">
           <Image
-            src={data.data?.AvatarImage}
+            src={data.data?.AvatarImage || "/kurobe.jpeg"}
             alt="myphoto"
             width={100}
             height={100}
@@ -67,7 +67,7 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
         <div className="flex-1 w-full flex flex-col items-center gap-5 pt-6  md:max-h-[900px] lg:max-h-[500px] overflow-y-auto ">
           {[...Array(30)].map((_, index) => (
             <Image
-              src={data.data?.AvatarImage}
+              src={data.data?.AvatarImage || "/kurobe.jpeg"}
               width={50}
               height={50}
               className="aspect-square rounded-full hover:scale-110 transition cursor-pointer "

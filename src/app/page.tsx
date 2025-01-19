@@ -36,7 +36,7 @@ export default async function Home() {
                   >
                     <div className="flex items-center flex-1 gap-2">
                       <Image
-                        src={data.data?.AvatarImage}
+                        src={data.data?.AvatarImage || "/kurobe.jpeg"}
                         width={40}
                         height={50}
                         alt="user"

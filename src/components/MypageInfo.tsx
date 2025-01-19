@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { Input } from "./ui/input";
 import Image from "next/image";
 import ImageModal from "./modal/ImageModal";
+import MailaddressModal from "./modal/MailaddressModal";
+import PasswordModal from "./modal/PasswordModal";
+import UsernameModal from "./modal/UsernameModal";
 
 interface Mypageinfo {
   data: {
@@ -18,6 +21,9 @@ interface Mypageinfo {
 
 const MypageInfo: React.FC<Mypageinfo> = ({ data }) => {
   const [Imagemodal, setImagemodal] = useState<boolean>(false);
+  const [Usernamemodal, setUsernamemodal] = useState<boolean>(false);
+  const [Mailaddressmodal, setMailaddressmodal] = useState<boolean>(false);
+  const [Passwordmodal, setPasswordmodal] = useState<boolean>(false);
   return (
     <>
       <div className="md:hidden min-h-[800px]   flex flex-col gap-5 ">
@@ -54,23 +60,41 @@ const MypageInfo: React.FC<Mypageinfo> = ({ data }) => {
             )}
             <div className="flex flex-col w-full space-y-2">
               <h2>ユーザーネーム</h2>
-              <div className="bg-neutral-200 rounded-md  px-4 py-2 cursor-pointer ">
+              <div
+                className="bg-neutral-200 rounded-md  px-4 py-2 cursor-pointer "
+                onClick={() => setUsernamemodal(true)}
+              >
                 <h2>{data.Username}</h2>
               </div>
             </div>
+            {Usernamemodal && (
+              <UsernameModal close={setUsernamemodal} data={data} />
+            )}
             <div className="flex flex-col w-full space-y-2">
               <h2>メールアドレス</h2>
-              <div className="bg-neutral-200 rounded-md  px-4 py-2 cursor-pointer ">
+              <div
+                className="bg-neutral-200 rounded-md  px-4 py-2 cursor-pointer "
+                onClick={() => setMailaddressmodal(true)}
+              >
                 <h2>{data.Mailaddress}</h2>
               </div>
               {/* <Input defaultValue={data.data?.Mailaddress} disabled /> */}
             </div>
+            {Mailaddressmodal && (
+              <MailaddressModal close={setMailaddressmodal} data={data} />
+            )}
             <div className="flex flex-col w-full space-y-2">
               <h2>パスワード</h2>
-              <div className="bg-neutral-200 rounded-md  px-4 py-2 cursor-pointer ">
+              <div
+                className="bg-neutral-200 rounded-md  px-4 py-2 cursor-pointer "
+                onClick={() => setPasswordmodal(true)}
+              >
                 <h2>**************</h2>
               </div>
             </div>
+            {Passwordmodal && (
+              <PasswordModal close={setPasswordmodal} data={data.UserId!} />
+            )}
           </div>
         </div>
         <div className="flex-1 flex flex-col px-10   ">

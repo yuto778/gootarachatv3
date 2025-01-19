@@ -24,16 +24,18 @@ const ImageModal: React.FC<ImageModalProps> = ({ close, data }) => {
     }
   };
 
-  const imageupdate = async () => {
+  const imageupdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     const result = await ImageUpdataFunction(selectedImage!, data);
 
     if (result?.success === false) return;
 
-    await Delay(4000);
+    await Delay(500);
 
     close(false);
 
-    router.prefetch("/mypage");
+    router.push("/mypage");
   };
   return (
     <div
