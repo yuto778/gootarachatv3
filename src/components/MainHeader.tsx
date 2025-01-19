@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-import MobileMenu from "./MobileMenu";
-import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 import { BellIcon, CircleUserRound, Home, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import MobileMenu from "./MobileMenu";
+import { Button } from "./ui/button";
+import { LogoutFunction } from "../../actions/LogoutFunction";
 
 const lists = [
   {
@@ -24,17 +24,16 @@ const lists = [
     icon: <CircleUserRound />,
     link: "/mypage",
   },
-  {
-    title: "ログアウト",
-    icon: <LogOutIcon />,
-    link: "/login",
-  },
 ];
 
 const MainHeader = () => {
   const pathname = usePathname();
 
   const Active = pathname;
+
+  const Logout = async () => {
+    await LogoutFunction();
+  };
 
   return (
     <div className="min-h-20 items-center  flex px-5 md:px-10">
@@ -56,6 +55,13 @@ const MainHeader = () => {
             <Link href={list.link} className="absolute inset-0" />
           </Button>
         ))}
+        <Button
+          className=" bg-transparent text-black-1 hover:text-yellow-first flex flex-col items-center gap-0 ml-0 "
+          onClick={Logout}
+        >
+          <LogOutIcon />
+          ログアウト
+        </Button>
       </nav>
       <MobileMenu />
     </div>

@@ -17,7 +17,7 @@ const Chatpage = () => {
             <h2 className="text-base md:text-xl">ユーザー名</h2>
           </div>
           <div className="flex flex-col min-h-[730px]  md:flex-1   ">
-            <div className="min-h-[600px]  md:min-h-[900px] lg:min-h-[700px] "></div>
+            <div className="min-h-[400px]  md:min-h-[900px] lg:min-h-[500px] "></div>
             <div className="flex-1 flex flex-col justify-center items-center w-full  ">
               <div className="flex flex-row items-center gap-5  w-full justify-center ">
                 <Input className="w-3/4 " />

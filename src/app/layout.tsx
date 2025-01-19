@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="ja">
       <body
         className={cn(
-          `min-h-screen min-w-full antialiased bg-gradient-to-b from-yellow-first to-yellow-end flex flex-col overflow-hidden ${hachmaru.className}`
+          `min-h-screen min-w-full antialiased bg-gradient-to-b from-yellow-first to-yellow-end flex flex-col overflow-hidden  ${hachmaru.className}`
         )}
       >
         <Toaster />
