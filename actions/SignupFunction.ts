@@ -14,13 +14,11 @@ export const SignupFunction = async (values: SignupFormType) => {
 
     if (!data) return { success: false };
 
-    const { error } = await supabase
-      .from("Users")
-      .insert({
-        Username: values.Username,
-        Mailaddress: values.Mailaddress,
-        AvatarImage: "/kurobe.jpeg",
-      });
+    const { error } = await supabase.from("Users").insert({
+      Username: values.Username,
+      Mailaddress: values.Mailaddress,
+      AvatarImage: "/Icon.jpeg",
+    });
 
     if (error) console.log(error);
 

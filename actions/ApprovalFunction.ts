@@ -20,12 +20,10 @@ export const ApprovalFunction = async (
 
     const { data: relationdata, error: relationerror } = await supabase
       .from("friend_relations")
-      .insert([
-        {
-          user_id_a: request_userid,
-          user_id_b: my_userid,
-        },
-      ])
+      .insert({
+        user_id_a: request_userid,
+        user_id_b: my_userid,
+      })
       .select("*");
 
     if (relationerror) {
