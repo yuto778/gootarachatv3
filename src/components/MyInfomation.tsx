@@ -1,9 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import FriendRequestModal from "./modal/FriendRequestModal";
 
 interface MyInfomationProps {
   data:
@@ -25,6 +27,7 @@ interface MyInfomationProps {
 }
 
 const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
+  const [friendrequestModal, setFriendrequestModal] = useState<boolean>(false);
   const pathname = usePathname();
   return (
     <>
@@ -48,7 +51,19 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
           <p className="truncate text-xs max-w-32">{data.data?.UserId}</p>
         </div>
       </div>
-      <div className="max-w-40 flex-1   border-t border-r border-black-1 hidden md:flex flex-col  p-10    ">
+      <div className="max-w-40 flex-1   border-t border-r border-black-1 hidden md:flex flex-col  p-10  relative  ">
+        <PlusCircle
+          size={16}
+          className="absolute top-3 right-3 hover:scale-105 transition cursor-pointer"
+          onClick={() => setFriendrequestModal((prev) => !prev)}
+        />
+        {friendrequestModal && (
+          <FriendRequestModal
+            close={setFriendrequestModal}
+            userid={data.data?.UserId}
+          />
+        )}
+
         <div className="flex items-center flex-col">
           <Image
             src={data.data?.AvatarImage || "/kurobe.jpeg"}
@@ -60,7 +75,9 @@ const MyInfomation: React.FC<MyInfomationProps> = ({ data }) => {
         </div>
         <div className="flex items-center flex-col mt-3">
           <h2 className="text-black-1 ">{data.data?.Username}</h2>
-          <p className="text-black-1 truncate max-w-28">{data.data?.UserId}</p>
+          <p className="text-black-1 truncate text-xs max-w-32">
+            {data.data?.UserId}
+          </p>
         </div>
         <div className="flex-1 w-full flex flex-col items-center gap-5 pt-6  md:max-h-[900px] lg:max-h-[500px] overflow-y-auto ">
           {[...Array(30)].map((_, index) => (

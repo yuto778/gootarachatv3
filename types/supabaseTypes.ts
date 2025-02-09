@@ -34,6 +34,147 @@ export type Database = {
   }
   public: {
     Tables: {
+      chatrooms: {
+        Row: {
+          created_at: string
+          id: string
+          paticipants: string[]
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          paticipants: string[]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          paticipants?: string[]
+        }
+        Relationships: []
+      }
+      friend_relations: {
+        Row: {
+          created_at: string
+          id: number
+          last_interacted: string | null
+          user_id_a: string
+          user_id_b: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          last_interacted?: string | null
+          user_id_a: string
+          user_id_b: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          last_interacted?: string | null
+          user_id_a?: string
+          user_id_b?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_friend_relations_user_id_a_fkey"
+            columns: ["user_id_a"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["UserId"]
+          },
+          {
+            foreignKeyName: "public_friend_relations_user_id_b_fkey"
+            columns: ["user_id_b"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["UserId"]
+          },
+        ]
+      }
+      friend_requests: {
+        Row: {
+          created_at: string
+          id: number
+          receiver_id: string
+          sender_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          receiver_id: string
+          sender_id: string
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          receiver_id?: string
+          sender_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_friend_requests_receiver_id_fkey"
+            columns: ["receiver_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["UserId"]
+          },
+          {
+            foreignKeyName: "public_friend_requests_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["UserId"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          read_by: string[] | null
+          room_id: string
+          sender_id: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          read_by?: string[] | null
+          room_id?: string
+          sender_id?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          read_by?: string[] | null
+          room_id?: string
+          sender_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_messages_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "chatrooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["UserId"]
+          },
+        ]
+      }
       Users: {
         Row: {
           AvatarImage: string | null
@@ -63,7 +204,7 @@ export type Database = {
           {
             foreignKeyName: "public_Users_UserId_fkey"
             columns: ["UserId"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -157,6 +298,7 @@ export type Database = {
           owner_id: string | null
           path_tokens: string[] | null
           updated_at: string | null
+          user_metadata: Json | null
           version: string | null
         }
         Insert: {
@@ -170,6 +312,7 @@ export type Database = {
           owner_id?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
+          user_metadata?: Json | null
           version?: string | null
         }
         Update: {
@@ -183,6 +326,7 @@ export type Database = {
           owner_id?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
+          user_metadata?: Json | null
           version?: string | null
         }
         Relationships: [
@@ -204,6 +348,7 @@ export type Database = {
           key: string
           owner_id: string | null
           upload_signature: string
+          user_metadata: Json | null
           version: string
         }
         Insert: {
@@ -214,6 +359,7 @@ export type Database = {
           key: string
           owner_id?: string | null
           upload_signature: string
+          user_metadata?: Json | null
           version: string
         }
         Update: {
@@ -224,6 +370,7 @@ export type Database = {
           key?: string
           owner_id?: string | null
           upload_signature?: string
+          user_metadata?: Json | null
           version?: string
         }
         Relationships: [
@@ -359,6 +506,10 @@ export type Database = {
           metadata: Json
           updated_at: string
         }[]
+      }
+      operation: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       search: {
         Args: {

@@ -11,13 +11,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { KeyIcon, Mail } from "lucide-react";
+import { Eye, KeyIcon, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { LoginFunction } from "../../actions/LoginFunction";
 import toast from "react-hot-toast";
 import { Delay } from "./Delay";
+import { useEffect, useState } from "react";
 
 const loginformSchema = z.object({
   Mailaddress: z.string().email(),
@@ -27,7 +28,16 @@ const loginformSchema = z.object({
 export type LoginFormType = z.infer<typeof loginformSchema>;
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
+  }, [timerId]);
+
   const Loginform = useForm<LoginFormType>({
     resolver: zodResolver(loginformSchema),
     defaultValues: {
@@ -36,10 +46,17 @@ const Login = () => {
     },
   });
 
-  // const testclick = async () => {
-  //   router.push("/");
-  // };
+  const showpassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
+    if (timerId) clearTimeout(timerId);
+    setShowPassword(true);
+
+    const newTimerId = setTimeout(() => {
+      setShowPassword(false);
+    }, 1500);
+    setTimerId(newTimerId);
+  };
   const onSubmit = async (values: LoginFormType) => {
     const load = toast.loading("ログイン中・・・");
     const result = await LoginFunction(values);
@@ -95,12 +112,21 @@ const Login = () => {
                     パスワード
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="6文字以上"
-                      {...field}
-                      type="password"
-                      className="font-sans "
-                    />
+                    <div className="relative">
+                      <Input
+                        placeholder="6文字以上"
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        className="font-sans "
+                      />
+                      <Button
+                        variant={"ghost"}
+                        className="absolute right-0 top-0"
+                        onClick={showpassword}
+                      >
+                        <Eye size={24} />
+                      </Button>
+                    </div>
                   </FormControl>
                 </div>
               </FormItem>
@@ -112,25 +138,6 @@ const Login = () => {
           </Button>
         </form>
       </Form>
-      {/* <div className="flex w-full  gap-3 ">
-        <CircleUserRound className="self-end size-10 text-black-1  " />
-        <div className="flex-1 flex flex-col gap-1">
-          <h2 className="text-xl">メールアドレス</h2>
-          <Input />
-        </div>
-      </div>
-      <div className="flex w-full  gap-3 ">
-        <Mail className="self-end size-10 text-black-1  " />
-        <div className="flex-1 flex flex-col gap-1">
-          <h2 className="text-xl">パスワード</h2>
-          <Input />
-        </div>
-      </div>
-
-      <Button className="self-center" onClick={testclick}>
-        ログイン
-        <LogInIcon />
-      </Button> */}
     </div>
   );
 };
