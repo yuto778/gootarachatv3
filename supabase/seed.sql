@@ -1,5 +1,6 @@
-insert into storage.buckets(id, name, public, file_size_limit) 
-values ('avatarImage', 'avatarImage', true, 52428800);
+INSERT INTO storage.buckets(id, name, public, file_size_limit)
+SELECT 'avatarImage', 'avatarImage', true, 52428800
+WHERE NOT EXISTS (SELECT 1 FROM storage.buckets WHERE id = 'avatarImage');
 
 
 create policy "認証済みユーザーのアップロードを許可"
