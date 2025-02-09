@@ -56,35 +56,35 @@ export type Database = {
         Row: {
           created_at: string
           id: number
-          last_interacted: string | null
-          user_id_a: string
-          user_id_b: string
+          last_interacted: string
+          userA: string
+          userB: string
         }
         Insert: {
           created_at?: string
           id?: number
-          last_interacted?: string | null
-          user_id_a: string
-          user_id_b: string
+          last_interacted?: string
+          userA?: string
+          userB?: string
         }
         Update: {
           created_at?: string
           id?: number
-          last_interacted?: string | null
-          user_id_a?: string
-          user_id_b?: string
+          last_interacted?: string
+          userA?: string
+          userB?: string
         }
         Relationships: [
           {
-            foreignKeyName: "public_friend_relations_user_id_a_fkey"
-            columns: ["user_id_a"]
+            foreignKeyName: "public_friend_relations_userA_fkey"
+            columns: ["userA"]
             isOneToOne: false
             referencedRelation: "Users"
             referencedColumns: ["UserId"]
           },
           {
-            foreignKeyName: "public_friend_relations_user_id_b_fkey"
-            columns: ["user_id_b"]
+            foreignKeyName: "public_friend_relations_userB_fkey"
+            columns: ["userB"]
             isOneToOne: false
             referencedRelation: "Users"
             referencedColumns: ["UserId"]

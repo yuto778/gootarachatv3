@@ -7,7 +7,7 @@ export const ApprovalFunction = async (
   request_userid: string
 ) => {
   const supabase = await createClient();
-  console.log(my_userid, request_userid);
+  console.log(`my_userid${my_userid}`, `request_userid${request_userid}`);
 
   try {
     const { data, error } = await supabase
@@ -16,21 +16,23 @@ export const ApprovalFunction = async (
       .eq("sender_id", request_userid)
       .eq("receiver_id", my_userid);
 
-    if (error || !data) return { success: false };
-
     const { data: relationdata, error: relationerror } = await supabase
       .from("friend_relations")
-      .insert({
-        user_id_a: request_userid,
-        user_id_b: my_userid,
-      })
+      .insert([
+        {
+          userA: request_userid,
+          userB: my_userid,
+        },
+      ])
       .select("*");
 
-    if (relationerror) {
+    console.log(relationdata);
+
+    if (error || !data) return { success: false };
+
+    if (relationerror || !relationdata) {
       console.log(relationerror);
     }
-
-    console.log(relationdata);
 
     return { success: true };
   } catch (error) {
